@@ -77,17 +77,20 @@ cd <repositorio>
 ## Uso rápido
 
 ```python
-from ad7888 import AD7888
-from parameters import AIN1, AIN2, ON_CHIP_REFERENCE, NORMAL_MODE
+from driver.ad7888 import AD7888
+from driver.parameters import *
+from time import sleep
 
-# Valores por defecto: channel=AIN1, ref=ON_CHIP_REFERENCE, mode=NORMAL_MODE
-adc = AD7888(bus=0, cs=0)
+def main():
+    ad7888 = AD7888(0, 0)
+    ad7888.set_reference(EXTERNAL_REFERENCE)
+    try:
+        print(ad7888.read_data())
+    finally:
+        ad7888.close()
 
-try:
-    raw = adc.read_data()          # lectura cruda (0 - 4095) del canal AIN1
-    print(f"AIN1: {raw}")
-finally:
-    adc.close()
+if __name__ == "__main__":
+    main()
 ```
 
 También puedes indicar todos los parámetros al crear el objeto:
@@ -182,9 +185,8 @@ AIN1: 2048
 
 ```
 .
-├── ad7888.py          # Driver
-├── parameters.py      # Constantes: canales, referencias y modos
-├── test_ad7888.py     # Programa de prueba
+├── driver/          # Contiene la API y las constantes
+├── test/      # Contiene el programa de prueba
 ├── README.md
 └── LICENSE
 ```
