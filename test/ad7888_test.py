@@ -1,5 +1,5 @@
-from app.ad7888_driver.ad7888 import AD7888
-from app.ad7888_driver.parameters import *
+from driver.ad7888 import AD7888
+from driver.parameters import *
 from time import sleep
 
 def main():
